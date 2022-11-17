@@ -13,8 +13,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context, listen: false);
     final mp = Provider.of<NavbarProvider>(context);
-    // const Color selectedColor = Color.fromRGBO(35, 35, 35, 1);
-    // const Color selectedDarkColor = Color.fromRGBO(240, 171, 0, 1);
 
     return Scaffold(
       appBar: AppBar(
@@ -34,7 +32,8 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: mp.items[mp.selectedIndex].widget,
-      bottomNavigationBar: const CustomBottomNavigationBar(),
+      // bottomNavigationBar: const CustomBottomNavigationBar(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton:
           (mp.items[mp.selectedIndex].label!.contains('Acerca'))
               ? FloatingActionButton(
@@ -44,7 +43,19 @@ class HomeScreen extends StatelessWidget {
                   onPressed: () =>
                       Navigator.pushNamed(context, SettingsScreen.routeName),
                 )
-              : null,
+              : FloatingActionButton(
+                  onPressed: () {},
+                  // child: const Icon(Icons.receipt_outlined),
+                  child: const FaIcon(
+                    FontAwesomeIcons.car,
+                  ),
+                ),
+      bottomNavigationBar: const BottomAppBar(
+        notchMargin: 5.0,
+        shape: CircularNotchedRectangle(),
+        elevation: 0,
+        child: CustomBottomNavigationBar(),
+      ),
     );
   }
 }

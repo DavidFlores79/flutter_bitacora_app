@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class ThemeProvider extends ChangeNotifier {
   ThemeData currentTheme;
-  Color lightColor = const Color.fromRGBO(35, 35, 35, 0.9);
+  Color lightColor = const Color.fromARGB(255, 52, 54, 168);
   Color darkColor = const Color.fromRGBO(240, 171, 0, 1);
 
   ThemeProvider({
     required isDarkmode,
-    lightColor = const Color.fromRGBO(35, 35, 35, 0.9),
+    lightColor = const Color.fromARGB(255, 52, 54, 168),
     darkColor = const Color.fromRGBO(240, 171, 0, 1),
   }) : currentTheme = isDarkmode
             ? ThemeData.dark().copyWith(
@@ -35,21 +35,21 @@ class ThemeProvider extends ChangeNotifier {
                   trackColor: MaterialStateProperty.all(
                       const Color.fromRGBO(35, 35, 35, 0.5)),
                 ),
-              );
+                bottomAppBarTheme: BottomAppBarTheme(color: lightColor));
 
   setLightMode() {
     currentTheme = ThemeData.light().copyWith(
-      appBarTheme: AppBarTheme(backgroundColor: lightColor),
-      floatingActionButtonTheme:
-          FloatingActionButtonThemeData(backgroundColor: lightColor),
-      bottomNavigationBarTheme:
-          BottomNavigationBarThemeData(selectedItemColor: lightColor),
-      switchTheme: SwitchThemeData(
-        thumbColor: MaterialStateProperty.all(lightColor),
-        trackColor:
-            MaterialStateProperty.all(const Color.fromRGBO(35, 35, 35, 0.5)),
-      ),
-    );
+        appBarTheme: AppBarTheme(backgroundColor: lightColor),
+        floatingActionButtonTheme:
+            FloatingActionButtonThemeData(backgroundColor: lightColor),
+        bottomNavigationBarTheme:
+            BottomNavigationBarThemeData(selectedItemColor: lightColor),
+        switchTheme: SwitchThemeData(
+          thumbColor: MaterialStateProperty.all(lightColor),
+          trackColor:
+              MaterialStateProperty.all(const Color.fromRGBO(35, 35, 35, 0.5)),
+        ),
+        bottomAppBarTheme: BottomAppBarTheme(color: lightColor));
     notifyListeners();
   }
 

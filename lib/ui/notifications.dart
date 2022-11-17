@@ -6,6 +6,7 @@ class Notifications {
 
   static showSnackBar(String message) {
     final snackBar = SnackBar(
+        behavior: SnackBarBehavior.floating,
         backgroundColor: const Color.fromRGBO(240, 171, 0, 1),
         content: Text(
           message,

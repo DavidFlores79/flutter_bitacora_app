@@ -36,8 +36,8 @@ class AuthBackground extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-            Color.fromARGB(255, 68, 66, 66),
-            Color.fromRGBO(35, 35, 35, 1),
+            Color.fromARGB(255, 52, 54, 168),
+            Color.fromARGB(255, 20, 22, 78),
           ]));
 }
 

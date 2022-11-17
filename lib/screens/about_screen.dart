@@ -15,7 +15,7 @@ class AboutScreen extends StatelessWidget {
           children: [
             const Image(
               image: AssetImage('assets/itsoft.png'),
-              height: 100,
+              height: 150,
             ),
             const Text(
               'Desarrollado por:',
@@ -26,7 +26,7 @@ class AboutScreen extends StatelessWidget {
               ),
             ),
             const Text(
-              'ItSoft Services de Mexico, S.A. de C.V.',
+              'Ing. David Flores Castillo',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
