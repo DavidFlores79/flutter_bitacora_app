@@ -135,4 +135,10 @@ class DBProvider {
     );
     return res.isNotEmpty ? res.map((e) => Visitas.fromMap(e)).toList() : null;
   }
+
+  Future<String> getImageDirectory(image) async {
+    final documentsDirectory = await getApplicationDocumentsDirectory();
+    final path = join(documentsDirectory.path, image);
+    return path;
+  }
 }

@@ -57,7 +57,8 @@ class HomeScreen extends StatelessWidget {
                 )
               : FloatingActionButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, NewVisitScreen.routeName);
+                    Navigator.pushReplacementNamed(
+                        context, NewVisitScreen.routeName);
                   },
                   // child: const Icon(Icons.receipt_outlined),
                   child: const FaIcon(
