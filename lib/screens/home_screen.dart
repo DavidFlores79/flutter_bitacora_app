@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:productos_app/providers/navbar_provider.dart';
+import 'package:productos_app/providers/providers.dart';
 import 'package:productos_app/screens/screens.dart';
 import 'package:productos_app/services/auth_service.dart';
 import 'package:productos_app/widgets/widgets.dart';
@@ -11,8 +14,17 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context, listen: false);
+    final authService = Provider.of<AuthService>(
+      context,
+      listen: false,
+    );
     final mp = Provider.of<NavbarProvider>(context);
+    final listaVisitasProvider = Provider.of<ListaVisitasProvider>(
+      context,
+      listen: false,
+    );
+    listaVisitasProvider.listarVisitas();
+    //listaVisitasProvider.eliminarTodasLasVisitas();
 
     return Scaffold(
       appBar: AppBar(
@@ -44,7 +56,9 @@ class HomeScreen extends StatelessWidget {
                       Navigator.pushNamed(context, SettingsScreen.routeName),
                 )
               : FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, NewVisitScreen.routeName);
+                  },
                   // child: const Icon(Icons.receipt_outlined),
                   child: const FaIcon(
                     FontAwesomeIcons.car,
@@ -58,4 +72,8 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+randomNumber(int min, int max) {
+  return min + Random().nextInt(max - min);
 }

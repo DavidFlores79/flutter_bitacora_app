@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:productos_app/providers/lista_visitas_provider.dart';
 import 'package:productos_app/providers/navbar_provider.dart';
 import 'package:productos_app/providers/providers.dart';
 import 'package:productos_app/screens/screens.dart';
@@ -37,6 +38,9 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider<OrdersProvider>(
           create: (context) => OrdersProvider(),
         ),
+        ChangeNotifierProvider<ListaVisitasProvider>(
+          create: (context) => ListaVisitasProvider(),
+        ),
       ],
       child: const MyApp(),
     );
@@ -62,6 +66,7 @@ class MyApp extends StatelessWidget {
         ModulesScreen.routeName: (context) => ModulesScreen(),
         AboutScreen.routeName: (context) => AboutScreen(),
         SettingsScreen.routeName: (context) => SettingsScreen(),
+        NewVisitScreen.routeName: (context) => NewVisitScreen(),
       },
       theme: Provider.of<ThemeProvider>(context).currentTheme,
     );

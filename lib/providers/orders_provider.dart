@@ -16,12 +16,12 @@ class OrdersProvider extends ChangeNotifier {
   final storage = const FlutterSecureStorage();
 
   OrdersProvider() {
-    print('Ordenes provider inicializado');
+    //print('Ordenes provider inicializado');
     getOrdenes();
   }
 
   getOrdenes() async {
-    print('listado de Ordenes');
+    //print('listado de Ordenes');
 
     String jwtToken = await storage.read(key: 'jwtToken') ?? '';
 
@@ -39,7 +39,7 @@ class OrdersProvider extends ChangeNotifier {
       case 200:
         final ordersResponse = OrderResponse.fromJson(response.body);
         pedidos.addAll(ordersResponse.pedidos);
-        print(pedidos);
+        //print(pedidos);
         break;
       case 401:
         logout();
@@ -48,10 +48,10 @@ class OrdersProvider extends ChangeNotifier {
         errorResponse = ErrorResponse.fromJson(response.body);
         Notifications.showSnackBar(errorResponse!.message);
         notifyListeners();
-        print(errorResponse);
+        //print(errorResponse);
         break;
       default:
-        print(response.body);
+      //print(response.body);
     }
     notifyListeners();
   }

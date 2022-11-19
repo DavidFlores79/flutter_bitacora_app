@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:productos_app/models/models.dart';
 import 'package:productos_app/providers/providers.dart';
 import 'package:productos_app/screens/screens.dart';
 import 'package:productos_app/services/auth_service.dart';
@@ -12,6 +13,22 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final nuevaVisita = Visitas(
+    //   nombreVisitante: 'David Flores3',
+    //   nombreAQuienVisita: 'Glendy Perez3',
+    //   motivoVisita: 'Visita',
+    //   fechaEntrada: '17-11-2022 10:30 PM',
+    //   fechaSalida: '',
+    //   imagenIdentificacion: 'imagen01.jpg',
+    //   placas: 'YHN-4589',
+    //   tipoVehiculoId: 1,
+    //   userId: 1,
+    // );
+    //DBProvider.db.dataBase;
+    //DBProvider.db.nuevaVisita(nuevaVisita);
+    //DBProvider.db.deleteRecord(14);
+    //DBProvider.db.deleteAllRecords();
+
     return Scaffold(
       body: AuthBackground(
         child: SingleChildScrollView(
