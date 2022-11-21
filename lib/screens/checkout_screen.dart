@@ -7,14 +7,14 @@ import 'package:productos_app/providers/providers.dart';
 import 'package:productos_app/shared/preferences.dart';
 import 'package:provider/provider.dart';
 
-class OrdersScreen extends StatefulWidget {
-  static const String routeName = 'visitas';
+class CheckOutScreen extends StatefulWidget {
+  static const String routeName = 'salidas';
 
   @override
-  State<OrdersScreen> createState() => _OrdersScreenState();
+  State<CheckOutScreen> createState() => _CheckOutScreenState();
 }
 
-class _OrdersScreenState extends State<OrdersScreen> {
+class _CheckOutScreenState extends State<CheckOutScreen> {
   @override
   Widget build(BuildContext context) {
     final listaVisitasProvider = Provider.of<ListaVisitasProvider>(context);
@@ -128,7 +128,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                 : Colors.black),
                         _CustomRichText(
                             "Tipo: ",
-                            getTipo(visitas[index].tipoVehiculoId),
+                            _getTipo(visitas[index].tipoVehiculoId),
                             Preferences.isDarkMode
                                 ? Colors.white
                                 : Colors.black),
@@ -185,7 +185,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
   }
 }
 
-String getTipo(int tipoId) {
+String _getTipo(int tipoId) {
   String tipo = 'Desconocido';
   switch (tipoId) {
     case 1:
@@ -202,7 +202,7 @@ String getTipo(int tipoId) {
   return tipo;
 }
 
-imageFromBase64String(String base64String) {
+_imageFromBase64String(String base64String) {
   return Image.memory(
     base64Decode(base64String),
     fit: BoxFit.fill,

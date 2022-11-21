@@ -5,9 +5,9 @@ import 'package:productos_app/screens/screens.dart';
 class NavbarProvider extends ChangeNotifier {
   List<NavbarDTO> items = [
     NavbarDTO(
-      label: 'Registros',
+      label: 'Entradas',
       iconData: const FaIcon(FontAwesomeIcons.newspaper),
-      widget: OrdersScreen(),
+      widget: CheckInScreen(),
     ),
     NavbarDTO(
       label: 'Acerca de',
