@@ -5,14 +5,21 @@ import 'package:productos_app/screens/screens.dart';
 class NavbarProvider extends ChangeNotifier {
   List<NavbarDTO> items = [
     NavbarDTO(
-      label: 'Entradas',
-      iconData: const FaIcon(FontAwesomeIcons.newspaper),
-      widget: CheckInScreen(),
+        label: 'Entradas',
+        iconData: const FaIcon(FontAwesomeIcons.car),
+        widget: CheckInScreen(),
+        ruta: CheckInScreen.routeName),
+    NavbarDTO(
+      label: 'Salidas',
+      iconData: const FaIcon(FontAwesomeIcons.carRear),
+      widget: CheckOutScreen(),
+      ruta: CheckOutScreen.routeName,
     ),
     NavbarDTO(
       label: 'Acerca de',
       iconData: const FaIcon(FontAwesomeIcons.question),
       widget: AboutScreen(),
+      ruta: AboutScreen.routeName,
     ),
   ];
 
@@ -30,6 +37,7 @@ class NavbarDTO {
   Widget? widget;
   String? label;
   Widget? iconData;
+  String? ruta;
 
-  NavbarDTO({this.widget, this.label, this.iconData});
+  NavbarDTO({this.widget, this.label, this.iconData, this.ruta});
 }

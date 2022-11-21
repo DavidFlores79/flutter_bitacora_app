@@ -154,6 +154,16 @@ class DBProvider {
     return res.isNotEmpty ? res.map((e) => Visitas.fromMap(e)).toList() : null;
   }
 
+  Future<List<Visitas>?> deleteAllRecordsNotUpdated(int actualizado) async {
+    final db = await dataBase;
+    // Delete the records that where updated
+    List<Map<String, dynamic>> res = await db.rawQuery(
+      'DELETE FROM visitas WHERE actualizado = ?',
+      [(actualizado.toString())],
+    );
+    return res.isNotEmpty ? res.map((e) => Visitas.fromMap(e)).toList() : null;
+  }
+
   Future<String> getImageDirectory(image) async {
     final documentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentsDirectory.path, image);

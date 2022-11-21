@@ -16,8 +16,8 @@ class ThemeProvider extends ChangeNotifier {
                 ),
                 floatingActionButtonTheme: FloatingActionButtonThemeData(
                     backgroundColor: darkColor, foregroundColor: Colors.white),
-                bottomNavigationBarTheme:
-                    BottomNavigationBarThemeData(selectedItemColor: darkColor),
+                bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                    selectedItemColor: darkColor, backgroundColor: darkColor),
                 switchTheme: SwitchThemeData(
                   thumbColor: MaterialStateProperty.all(darkColor),
                   trackColor: MaterialStateProperty.all(
@@ -28,8 +28,8 @@ class ThemeProvider extends ChangeNotifier {
                 appBarTheme: AppBarTheme(backgroundColor: lightColor),
                 floatingActionButtonTheme:
                     FloatingActionButtonThemeData(backgroundColor: lightColor),
-                bottomNavigationBarTheme:
-                    BottomNavigationBarThemeData(selectedItemColor: lightColor),
+                bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                    selectedItemColor: lightColor, backgroundColor: lightColor),
                 switchTheme: SwitchThemeData(
                   thumbColor: MaterialStateProperty.all(lightColor),
                   trackColor: MaterialStateProperty.all(
@@ -42,8 +42,8 @@ class ThemeProvider extends ChangeNotifier {
         appBarTheme: AppBarTheme(backgroundColor: lightColor),
         floatingActionButtonTheme:
             FloatingActionButtonThemeData(backgroundColor: lightColor),
-        bottomNavigationBarTheme:
-            BottomNavigationBarThemeData(selectedItemColor: lightColor),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            selectedItemColor: lightColor, backgroundColor: lightColor),
         switchTheme: SwitchThemeData(
           thumbColor: MaterialStateProperty.all(lightColor),
           trackColor:
@@ -60,8 +60,8 @@ class ThemeProvider extends ChangeNotifier {
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
           backgroundColor: darkColor, foregroundColor: Colors.white),
-      bottomNavigationBarTheme:
-          BottomNavigationBarThemeData(selectedItemColor: darkColor),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          selectedItemColor: darkColor, backgroundColor: darkColor),
       switchTheme: SwitchThemeData(
         thumbColor: MaterialStateProperty.all(darkColor),
         trackColor:

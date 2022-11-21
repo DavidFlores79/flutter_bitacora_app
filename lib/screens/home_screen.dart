@@ -26,6 +26,43 @@ class HomeScreen extends StatelessWidget {
     // listaVisitasProvider.listarVisitas();
     listaVisitasProvider.listarVisitasNoSincronizadas();
     // listaVisitasProvider.eliminarTodasLasVisitas();
+    FloatingActionButton floatingActionButton = FloatingActionButton(
+      onPressed: () {
+        Navigator.pushReplacementNamed(context, NewVisitScreen.routeName);
+      },
+      // child: const Icon(Icons.receipt_outlined),
+      child: const FaIcon(
+        FontAwesomeIcons.car,
+      ),
+    );
+    switch (mp.items[mp.selectedIndex].ruta) {
+      case CheckOutScreen.routeName:
+        floatingActionButton = FloatingActionButton(
+            child: const Icon(Icons.sync),
+            onPressed: () {
+              print('sincronzando datos...');
+            });
+        break;
+      case AboutScreen.routeName:
+        floatingActionButton = FloatingActionButton(
+          child: const FaIcon(
+            FontAwesomeIcons.gear,
+          ),
+          onPressed: () =>
+              Navigator.pushNamed(context, SettingsScreen.routeName),
+        );
+        break;
+      default:
+        floatingActionButton = FloatingActionButton(
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, NewVisitScreen.routeName);
+          },
+          // child: const Icon(Icons.receipt_outlined),
+          child: const FaIcon(
+            FontAwesomeIcons.car,
+          ),
+        );
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -45,33 +82,8 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: mp.items[mp.selectedIndex].widget,
-      // bottomNavigationBar: const CustomBottomNavigationBar(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton:
-          (mp.items[mp.selectedIndex].label!.contains('Acerca'))
-              ? FloatingActionButton(
-                  child: const FaIcon(
-                    FontAwesomeIcons.gear,
-                  ),
-                  onPressed: () =>
-                      Navigator.pushNamed(context, SettingsScreen.routeName),
-                )
-              : FloatingActionButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(
-                        context, NewVisitScreen.routeName);
-                  },
-                  // child: const Icon(Icons.receipt_outlined),
-                  child: const FaIcon(
-                    FontAwesomeIcons.car,
-                  ),
-                ),
-      bottomNavigationBar: const BottomAppBar(
-        notchMargin: 5.0,
-        shape: CircularNotchedRectangle(),
-        elevation: 0,
-        child: CustomBottomNavigationBar(),
-      ),
+      floatingActionButton: floatingActionButton,
+      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }

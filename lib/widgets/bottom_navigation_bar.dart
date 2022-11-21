@@ -11,7 +11,6 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
     return BottomNavigationBar(
         elevation: 0,
-        backgroundColor: Theme.of(context).primaryColor.withAlpha(0),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.grey,
         currentIndex: mp.selectedIndex,
