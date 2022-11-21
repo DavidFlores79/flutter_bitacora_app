@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:productos_app/models/models.dart';
 import 'package:productos_app/screens/screens.dart';
 import 'package:productos_app/services/services.dart';
@@ -111,6 +110,7 @@ class ImagenINE extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15),
             child: InteractiveViewer(
+              // boundaryMargin: EdgeInsets.all(10),
               minScale: 0.1,
               child: (visita.imagenIdentificacion!.contains('/9j'))
                   ? imageFromBase64String(
@@ -123,9 +123,9 @@ class ImagenINE extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
-                color: Colors.grey.shade600,
+                color: Colors.black,
                 spreadRadius: 3,
                 blurRadius: 5,
                 offset: Offset(-3, 3), // changes position of shadow
@@ -150,7 +150,7 @@ imageFromBase64String(String base64String) {
   return FadeInImage(
     width: double.infinity,
     height: 400,
-    fit: BoxFit.cover,
+    fit: BoxFit.fitWidth,
     image: Image.memory(
       base64Decode(base64String),
       fit: BoxFit.fill,
