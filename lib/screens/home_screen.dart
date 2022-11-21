@@ -6,6 +6,7 @@ import 'package:productos_app/providers/navbar_provider.dart';
 import 'package:productos_app/providers/providers.dart';
 import 'package:productos_app/screens/screens.dart';
 import 'package:productos_app/services/auth_service.dart';
+import 'package:productos_app/ui/notifications.dart';
 import 'package:productos_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -40,7 +41,9 @@ class HomeScreen extends StatelessWidget {
         floatingActionButton = FloatingActionButton(
             child: const Icon(Icons.sync),
             onPressed: () {
-              print('sincronzando datos...');
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  behavior: SnackBarBehavior.floating,
+                  content: Text('Sincronizando datos...')));
             });
         break;
       case AboutScreen.routeName:

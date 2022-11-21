@@ -134,10 +134,3 @@ String _getTipo(int tipoId) {
   }
   return tipo;
 }
-
-_imageFromBase64String(String base64String) {
-  return Image.memory(
-    base64Decode(base64String),
-    fit: BoxFit.fill,
-  );
-}

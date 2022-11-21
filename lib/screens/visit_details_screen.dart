@@ -123,9 +123,9 @@ class ImagenINE extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            boxShadow: const [
+            boxShadow: [
               BoxShadow(
-                color: Colors.black,
+                color: Colors.grey.shade600,
                 spreadRadius: 3,
                 blurRadius: 5,
                 offset: Offset(-3, 3), // changes position of shadow

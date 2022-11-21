@@ -11,10 +11,21 @@ import 'package:productos_app/services/services.dart';
 import 'package:productos_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-class NewVisitScreen extends StatelessWidget {
+class NewVisitScreen extends StatefulWidget {
   static const String routeName = 'newvisit';
+  NewVisitScreen({super.key});
+
+  @override
+  State<NewVisitScreen> createState() => _NewVisitScreenState();
+}
+
+class _NewVisitScreenState extends State<NewVisitScreen> {
   final ImagePicker _picker = ImagePicker();
+
   String base64String = "";
+
+  ImageProvider<Object> imagenEscogida =
+      const AssetImage('assets/placeholder.png');
 
   final Map<String, dynamic> formValues = {
     'nombreVisitante': '',
@@ -22,7 +33,7 @@ class NewVisitScreen extends StatelessWidget {
     'motivoVisita': '',
     'fechaEntrada': '',
     'fechaSalida': '',
-    'imagenIdentificacion': 'imagen01.jpg',
+    'imagenIdentificacion': 'placeholder.png',
     'placas': '',
     'tipoVehiculoId': 1,
     'userId': 1,
@@ -39,10 +50,11 @@ class NewVisitScreen extends StatelessWidget {
     Uint8List imagebyte = await image.readAsBytes();
     base64String = base64Encode(imagebyte);
     formValues['imagenIdentificacion'] = base64String;
+    setState(() {
+      imagenEscogida = Image.memory(imagebyte).image;
+    });
     //print(base64String);
   }
-
-  NewVisitScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -72,17 +84,56 @@ class NewVisitScreen extends StatelessWidget {
           key: myFormKey,
           child: Column(
             children: [
-              TextButton(
-                onPressed: () => _pickImagebase64(ImageSource.gallery),
-                child: const FaIcon(
-                  FontAwesomeIcons.images,
-                  color: Colors.black,
+              Container(
+                height: 200,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.grey),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Stack(
+                    children: [
+                      Image(
+                        width: double.infinity,
+                        height: double.infinity,
+                        image: imagenEscogida,
+                        fit: BoxFit.cover,
+                      ),
+                      Positioned(
+                        bottom: 10,
+                        right: 10,
+                        child: TextButton(
+                          onPressed: () => _pickImagebase64(ImageSource.camera),
+                          child: const FaIcon(
+                            FontAwesomeIcons.camera,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 10,
+                        right: 50,
+                        child: TextButton(
+                          onPressed: () =>
+                              _pickImagebase64(ImageSource.gallery),
+                          child: const FaIcon(
+                            FontAwesomeIcons.images,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
+              ),
+              const SizedBox(
+                height: 20,
               ),
               CustomInputField(
                 hintText: 'Placas',
                 labelText: 'Numero de Placa',
-                suffixIcon: Icons.car_rental_outlined,
+                suffixIcon: FontAwesomeIcons.carRear,
                 keyboardType: TextInputType.text,
                 formProperty: 'placas',
                 formValues: formValues,
@@ -94,7 +145,7 @@ class NewVisitScreen extends StatelessWidget {
               CustomInputField(
                 hintText: 'Nombre Visitante',
                 labelText: 'Visitante',
-                suffixIcon: Icons.group,
+                suffixIcon: FontAwesomeIcons.idCard,
                 keyboardType: TextInputType.text,
                 formProperty: 'nombreVisitante',
                 formValues: formValues,
@@ -106,7 +157,7 @@ class NewVisitScreen extends StatelessWidget {
               CustomInputField(
                 hintText: 'A quien Visita',
                 labelText: 'A quien visita',
-                suffixIcon: Icons.group,
+                suffixIcon: FontAwesomeIcons.userGroup,
                 keyboardType: TextInputType.text,
                 formProperty: 'nombreAQuienVisita',
                 formValues: formValues,
@@ -118,7 +169,7 @@ class NewVisitScreen extends StatelessWidget {
               CustomInputField(
                 hintText: 'Motivo',
                 labelText: 'Motivo de la visita',
-                suffixIcon: Icons.group,
+                suffixIcon: FontAwesomeIcons.solidMessage,
                 keyboardType: TextInputType.text,
                 formProperty: 'motivoVisita',
                 formValues: formValues,
