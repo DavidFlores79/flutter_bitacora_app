@@ -113,11 +113,10 @@ class _CheckInScreenState extends State<CheckInScreen> {
                                   ? Colors.white
                                   : Colors.black,
                               fontWeight: FontWeight.bold),
-                          text: "Visita: ",
+                          text: "# ",
                           children: [
                             TextSpan(
-                              text:
-                                  "${visitas[index].nombreVisitante} / ${visitas[index].nombreAQuienVisita}",
+                              text: "${visitas[index].id}",
                               style: const TextStyle(
                                   fontWeight: FontWeight.normal),
                             ),
@@ -127,8 +126,8 @@ class _CheckInScreenState extends State<CheckInScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _CustomRichText(
-                            "ID: ",
-                            visitas[index].id.toString(),
+                            "Visitante/Visita: ",
+                            "${visitas[index].nombreVisitante} / ${visitas[index].nombreAQuienVisita}",
                             Preferences.isDarkMode
                                 ? Colors.white
                                 : Colors.black),
@@ -146,12 +145,6 @@ class _CheckInScreenState extends State<CheckInScreen> {
                         _CustomRichText(
                             "Recibió: ",
                             visitas[index].userId.toString(),
-                            Preferences.isDarkMode
-                                ? Colors.white
-                                : Colors.black),
-                        _CustomRichText(
-                            "Actualizado: ",
-                            visitas[index].actualizado.toString(),
                             Preferences.isDarkMode
                                 ? Colors.white
                                 : Colors.black),

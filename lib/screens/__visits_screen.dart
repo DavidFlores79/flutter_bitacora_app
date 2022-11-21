@@ -98,7 +98,7 @@ class VisitsScreen extends StatelessWidget {
                     // });
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         behavior: SnackBarBehavior.floating,
-                        content: Text('Se ha dado salida a este vehiculo')));
+                        content: Text('Se ha dado salida a este vehículo')));
                   },
                   child: ListTile(
                     onTap: () {
