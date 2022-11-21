@@ -66,6 +66,11 @@ class ListaVisitasProvider extends ChangeNotifier {
     listarVisitas; //ya se notifica en este metodo
   }
 
+  actualizarSalida(int id) async {
+    await DBProvider.db.checkOutDate(id);
+    listarVisitas; //ya se notifica en este metodo
+  }
+
   eliminarVisitasSincronizadas() async {
     final lista = await DBProvider.db.deleteAllRecordsUpdated(1);
     listaDeVisitas = [...?lista];

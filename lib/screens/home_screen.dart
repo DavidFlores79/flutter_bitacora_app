@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
       context,
       listen: false,
     );
-    listaVisitasProvider.listarVisitas();
+    listaVisitasProvider.listarVisitasNoSincronizadas();
     //listaVisitasProvider.eliminarTodasLasVisitas();
 
     return Scaffold(

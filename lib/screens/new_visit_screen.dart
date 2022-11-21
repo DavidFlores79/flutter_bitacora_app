@@ -1,5 +1,10 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:productos_app/providers/providers.dart';
 import 'package:productos_app/screens/screens.dart';
 import 'package:productos_app/services/services.dart';
@@ -8,26 +13,45 @@ import 'package:provider/provider.dart';
 
 class NewVisitScreen extends StatelessWidget {
   static const String routeName = 'newvisit';
+  final ImagePicker _picker = ImagePicker();
+  String base64String = "";
 
-  const NewVisitScreen({super.key});
+  final Map<String, dynamic> formValues = {
+    'nombreVisitante': '',
+    'nombreAQuienVisita': '',
+    'motivoVisita': '',
+    'fechaEntrada': '',
+    'fechaSalida': '',
+    'imagenIdentificacion': 'imagen01.jpg',
+    'placas': '',
+    'tipoVehiculoId': 1,
+    'userId': 1,
+  };
+
+  void _pickImagebase64(ImageSource source) async {
+    final XFile? image = await _picker.pickImage(
+      source: source,
+      imageQuality: 25,
+    );
+
+    if (image == null) return;
+
+    Uint8List imagebyte = await image.readAsBytes();
+    base64String = base64Encode(imagebyte);
+    formValues['imagenIdentificacion'] = base64String;
+    //print(base64String);
+  }
+
+  NewVisitScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context, listen: false);
+    DateTime now = DateTime.now();
+    final formatterDate = DateFormat('yyyy/MM/dd hh:mm');
+    formValues['fechaEntrada'] = formatterDate.format(now).toString();
 
     final GlobalKey<FormState> myFormKey = GlobalKey<FormState>();
-
-    final Map<String, dynamic> formValues = {
-      'nombreVisitante': '',
-      'nombreAQuienVisita': '',
-      'motivoVisita': '',
-      'fechaEntrada': '',
-      'fechaSalida': '',
-      'imagenIdentificacion': 'imagen01.jpg',
-      'placas': '',
-      'tipoVehiculoId': 1,
-      'userId': 1,
-    };
 
     return Scaffold(
       appBar: AppBar(
@@ -48,6 +72,13 @@ class NewVisitScreen extends StatelessWidget {
           key: myFormKey,
           child: Column(
             children: [
+              TextButton(
+                onPressed: () => _pickImagebase64(ImageSource.gallery),
+                child: const FaIcon(
+                  FontAwesomeIcons.images,
+                  color: Colors.black,
+                ),
+              ),
               CustomInputField(
                 hintText: 'Placas',
                 labelText: 'Numero de Placa',
@@ -96,18 +127,6 @@ class NewVisitScreen extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              CustomInputField(
-                hintText: 'Fecha de Entrada',
-                labelText: 'Fecha de Entrada',
-                suffixIcon: Icons.date_range_outlined,
-                keyboardType: TextInputType.datetime,
-                formProperty: 'fechaEntrada',
-                formValues: formValues,
-                textCapitalization: TextCapitalization.words,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
               DropdownButtonFormField(
                 value: 1,
                 items: const [
@@ -116,7 +135,7 @@ class NewVisitScreen extends StatelessWidget {
                   DropdownMenuItem(value: 3, child: Text('Camion')),
                 ],
                 onChanged: (value) {
-                  print(value);
+                  //print(value);
                   formValues['tipoVehiculoId'] = (value ?? 1);
                 },
               ),
@@ -131,21 +150,11 @@ class NewVisitScreen extends StatelessWidget {
                       .requestFocus(FocusNode()); //ocultar el teclado del movil
 
                   if (!myFormKey.currentState!.validate()) {
-                    print('Formulario no valido');
+                    //print('Formulario no valido');
                     return;
                   }
-                  print(formValues);
-
-                  // const nombreVisitante = "David Flores";
-                  // const nombreAQuienVisita = "Glendy Perez";
-                  // const motivoVisita = "Rappy";
-                  // const imagenIdentificacion = "imagen01.jpg";
-                  // final tipoVehiculoId = randomNumber(1, 4);
-                  // const placas = "FYX-5689";
-                  // final userId = randomNumber(1, 3);
-                  // const fechaEntrada = "17-11-2022 10:03 PM";
-                  // const fechaSalida = "";
-                  const actualizado = 0;
+                  //print(formValues);
+                  formValues['actualizado'] = 0;
 
                   Provider.of<ListaVisitasProvider>(context, listen: false)
                       .agregarVisita(
@@ -158,17 +167,11 @@ class NewVisitScreen extends StatelessWidget {
                     formValues['placas'],
                     formValues['tipoVehiculoId'],
                     formValues['userId'],
-                    actualizado,
+                    formValues['actualizado'],
                   );
 
+                  // Navigator.pop(context);
                   Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-                  // Navigator.pushReplacement(
-                  //     context,
-                  //     PageRouteBuilder(
-                  //         pageBuilder:
-                  //             (context, animation, secondaryAnimation) =>
-                  //                 HomeScreen(),
-                  //         transitionDuration: const Duration(seconds: 0)));
                 },
                 child: const SizedBox(
                   width: double.infinity,

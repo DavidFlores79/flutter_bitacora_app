@@ -9,27 +9,27 @@ class Visitas {
     this.id,
     required this.nombreVisitante,
     required this.nombreAQuienVisita,
-    required this.motivoVisita,
-    required this.imagenIdentificacion,
+    this.motivoVisita,
+    this.imagenIdentificacion,
     required this.tipoVehiculoId,
     required this.placas,
     required this.userId,
     required this.fechaEntrada,
     required this.fechaSalida,
-    this.actualizado,
+    required this.actualizado,
   });
 
   int? id;
   String nombreVisitante;
   String nombreAQuienVisita;
-  String motivoVisita;
-  String imagenIdentificacion;
+  String? motivoVisita;
+  String? imagenIdentificacion;
   int tipoVehiculoId;
   String placas;
   int userId;
   String fechaEntrada;
   String fechaSalida;
-  int? actualizado;
+  int actualizado;
 
   factory Visitas.fromJson(String str) => Visitas.fromMap(json.decode(str));
 

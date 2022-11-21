@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:productos_app/models/models.dart';
 import 'package:sqflite/sqflite.dart';
@@ -100,7 +101,8 @@ class DBProvider {
     final db = await dataBase;
 
     // Get all the records
-    List<Map<String, dynamic>> res = await db.rawQuery('SELECT * FROM visitas');
+    List<Map<String, dynamic>> res = await db.rawQuery(
+        'SELECT id, nombreVisitante, nombreAQuienVisita, motivoVisita, tipoVehiculoId, placas, userId, fechaEntrada, fechaSalida, actualizado FROM visitas');
 
     return res.isNotEmpty ? res.map((e) => Visitas.fromMap(e)).toList() : null;
   }
@@ -111,6 +113,22 @@ class DBProvider {
     // Delete the record by Id
     final count = await db
         .rawDelete('DELETE FROM visitas WHERE id = ?', [(id.toString())]);
+    print('Se elimaron: $count elemento(s).');
+
+    return count;
+  }
+
+  Future<int> checkOutDate(int id) async {
+    DateTime now = DateTime.now();
+    final formatterDate = DateFormat('yyyy/MM/dd hh:mm');
+    final fechaSalida = formatterDate.format(now).toString();
+
+    final db = await dataBase;
+
+    // Delete the record by Id
+    final count = await db.rawUpdate(
+        'UPDATE visitas SET fechaSalida = ?, actualizado = ? WHERE id = ?',
+        [fechaSalida, 1, id]);
     print('Se elimaron: $count elemento(s).');
 
     return count;

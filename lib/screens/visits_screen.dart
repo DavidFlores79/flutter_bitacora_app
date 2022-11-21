@@ -7,18 +7,24 @@ import 'package:productos_app/providers/providers.dart';
 import 'package:productos_app/shared/preferences.dart';
 import 'package:provider/provider.dart';
 
-class OrdersScreen extends StatefulWidget {
+class VisitsScreen extends StatelessWidget {
   static const String routeName = 'visitas';
+  late List<Visitas> visitas;
 
-  @override
-  State<OrdersScreen> createState() => _OrdersScreenState();
-}
+  Image imageFromBase64String(String base64String) {
+    return Image.memory(
+      base64Decode(base64String),
+      filterQuality: FilterQuality.high,
+      width: 44,
+    );
+  }
 
-class _OrdersScreenState extends State<OrdersScreen> {
   @override
   Widget build(BuildContext context) {
-    final listaVisitasProvider = Provider.of<ListaVisitasProvider>(context);
-    List<Visitas> visitas = listaVisitasProvider.listaDeVisitas;
+    final listaVisitasProvider =
+        Provider.of<ListaVisitasProvider>(context, listen: false);
+    listaVisitasProvider.listarVisitas();
+    visitas = listaVisitasProvider.listaDeVisitas;
     return Scaffold(
       body: Column(
         children: [
@@ -71,8 +77,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                   Navigator.of(context).pop(true);
                                   Provider.of<ListaVisitasProvider>(context,
                                           listen: false)
-                                      .actualizarSalida(visitas[index].id!);
-                                  visitas = listaVisitasProvider.listaDeVisitas;
+                                      .eliminarVisitaPorId(visitas[index].id!);
                                 },
                                 child: const Text("Confirmar")),
                             TextButton(
@@ -88,9 +93,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
                     );
                   },
                   onDismissed: (DismissDirection direction) {
-                    setState(() {
-                      visitas.removeAt(index);
-                    });
+                    // setState(() {
+                    //   widget.pedidos.removeAt(index);
+                    // });
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         behavior: SnackBarBehavior.floating,
                         content: Text('Se ha dado salida a este vehiculo')));
@@ -121,14 +126,14 @@ class _OrdersScreenState extends State<OrdersScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _CustomRichText(
-                            "ID: ",
-                            visitas[index].id.toString(),
+                            "Tipo: ",
+                            getTipo(visitas[index].tipoVehiculoId),
                             Preferences.isDarkMode
                                 ? Colors.white
                                 : Colors.black),
                         _CustomRichText(
-                            "Tipo: ",
-                            getTipo(visitas[index].tipoVehiculoId),
+                            "Placas: ",
+                            visitas[index].placas,
                             Preferences.isDarkMode
                                 ? Colors.white
                                 : Colors.black),
@@ -136,29 +141,20 @@ class _OrdersScreenState extends State<OrdersScreen> {
                             visitas[index].fechaEntrada, Colors.red),
                         if (visitas[index].fechaSalida != '')
                           _CustomRichText("Salida: ",
-                              visitas[index].fechaSalida, Colors.green),
+                              visitas[index].fechaSalida ?? '', Colors.green),
                         _CustomRichText(
                             "Recibió: ",
                             visitas[index].userId.toString(),
                             Preferences.isDarkMode
                                 ? Colors.white
                                 : Colors.black),
-                        _CustomRichText(
-                            "Actualizado: ",
-                            visitas[index].actualizado.toString(),
-                            Preferences.isDarkMode
-                                ? Colors.white
-                                : Colors.black),
                       ],
                     ),
-                    leading: FaIcon(
+                    leading: const FaIcon(
                       FontAwesomeIcons.car,
-                      size: 30,
-                      color: (visitas[index].actualizado == 1)
-                          ? Colors.green
-                          : Colors.red,
+                      color: Colors.red,
                     ),
-                    // trailing: const FaIcon(FontAwesomeIcons.circleQuestion),
+                    trailing: const Icon(Icons.density_small_outlined),
                   ),
                 );
               },
@@ -200,11 +196,4 @@ String getTipo(int tipoId) {
     default:
   }
   return tipo;
-}
-
-imageFromBase64String(String base64String) {
-  return Image.memory(
-    base64Decode(base64String),
-    fit: BoxFit.fill,
-  );
 }
