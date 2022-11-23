@@ -60,7 +60,7 @@ class _NewVisitScreenState extends State<NewVisitScreen> {
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context, listen: false);
     DateTime now = DateTime.now();
-    final formatterDate = DateFormat('yyyy/MM/dd hh:mm');
+    final formatterDate = DateFormat('yyyy/MM/dd HH:mm');
     formValues['fechaEntrada'] = formatterDate.format(now).toString();
 
     final GlobalKey<FormState> myFormKey = GlobalKey<FormState>();
@@ -85,7 +85,7 @@ class _NewVisitScreenState extends State<NewVisitScreen> {
           child: Column(
             children: [
               Container(
-                height: 200,
+                height: 300,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),

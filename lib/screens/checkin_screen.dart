@@ -210,6 +210,6 @@ String getTipo(int tipoId) {
 
 String getfechaSalida() {
   DateTime now = DateTime.now();
-  final formatterDate = DateFormat('yyyy/MM/dd hh:mm');
+  final formatterDate = DateFormat('yyyy/MM/dd HH:mm');
   return formatterDate.format(now).toString();
 }
