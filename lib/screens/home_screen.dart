@@ -1,13 +1,15 @@
 import 'dart:math';
 
+import 'package:bitacora_app/models/models.dart';
+import 'package:bitacora_app/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:productos_app/providers/navbar_provider.dart';
-import 'package:productos_app/providers/providers.dart';
-import 'package:productos_app/screens/screens.dart';
-import 'package:productos_app/services/auth_service.dart';
-import 'package:productos_app/ui/notifications.dart';
-import 'package:productos_app/widgets/widgets.dart';
+import 'package:bitacora_app/providers/navbar_provider.dart';
+import 'package:bitacora_app/providers/providers.dart';
+import 'package:bitacora_app/screens/screens.dart';
+import 'package:bitacora_app/services/auth_service.dart';
+import 'package:bitacora_app/ui/notifications.dart';
+import 'package:bitacora_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -19,6 +21,8 @@ class HomeScreen extends StatelessWidget {
       context,
       listen: false,
     );
+    final altura = MediaQuery.of(context).size.height;
+
     final mp = Provider.of<NavbarProvider>(context);
     final listaVisitasProvider = Provider.of<ListaVisitasProvider>(
       context,
@@ -41,9 +45,18 @@ class HomeScreen extends StatelessWidget {
         floatingActionButton = FloatingActionButton(
             child: const Icon(Icons.sync),
             onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              final syncService =
+                  Provider.of<SyncService>(context, listen: false);
+              List<Visitas> visitas = listaVisitasProvider.listaDeVisitas;
+              syncService.sincronizarVisitas(visitas);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  margin: EdgeInsets.only(
+                      bottom: altura - 320, left: 20, right: 20),
                   behavior: SnackBarBehavior.floating,
-                  content: Text('Sincronizando datos...')));
+                  content: const Text('Sincronizando datos...'),
+                ),
+              );
             });
         break;
       case AboutScreen.routeName:
@@ -75,18 +88,13 @@ class HomeScreen extends StatelessWidget {
           image: AssetImage('assets/hope-logo.png'),
           height: 45,
         ),
-        actions: [
-          IconButton(
-              onPressed: () async {
-                Navigator.pushReplacementNamed(context, LoginScreen.routeName);
-                await authService.logout();
-              },
-              icon: const Icon(Icons.logout))
+        actions: const [
+          PopupMenuList(),
         ],
       ),
       body: mp.items[mp.selectedIndex].widget,
       floatingActionButton: floatingActionButton,
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }

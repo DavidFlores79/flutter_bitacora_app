@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:productos_app/models/models.dart';
-import 'package:productos_app/screens/screens.dart';
-import 'package:productos_app/services/services.dart';
-import 'package:productos_app/shared/preferences.dart';
+import 'package:bitacora_app/models/models.dart';
+import 'package:bitacora_app/screens/screens.dart';
+import 'package:bitacora_app/services/services.dart';
+import 'package:bitacora_app/shared/preferences.dart';
 import 'package:provider/provider.dart';
 
 class VisitDetails extends StatelessWidget {
@@ -22,15 +22,6 @@ class VisitDetails extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
         title: const Text('Detalle de la Visita'),
-        actions: [
-          IconButton(
-              onPressed: () async {
-                Navigator.pushReplacementNamed(context, LoginScreen.routeName);
-                await authService.logout();
-              },
-              icon: const Icon(Icons.logout))
-        ],
-        //backgroundColor: const Color.fromRGBO(35, 35, 35, 1),
       ),
       body: SafeArea(
         child: Padding(
@@ -65,6 +56,7 @@ class VisitDetails extends StatelessWidget {
                   if (visita.fechaSalida != '')
                     _CustomRichText(
                         "Salida: ", visita.fechaSalida, Colors.green),
+                  if (visita.fechaSalida != '') SizedBox(height: 10),
                   _CustomRichText("Recibió: ", visita.userId.toString(),
                       Preferences.isDarkMode ? Colors.white : Colors.black),
                   SizedBox(height: 10),
@@ -105,7 +97,7 @@ class ImagenINE extends StatelessWidget {
       children: [
         Container(
           width: double.infinity,
-          height: 300,
+          height: 250,
           // ignore: sort_child_properties_last
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15),
@@ -125,17 +117,17 @@ class ImagenINE extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.shade600,
+                color: Colors.grey.shade400,
                 spreadRadius: 3,
                 blurRadius: 5,
-                offset: Offset(-3, 3), // changes position of shadow
+                offset: const Offset(-3, 3), // changes position of shadow
               ),
             ],
           ),
         ),
         const Positioned(
           right: 15,
-          bottom: 15,
+          bottom: 25,
           child: Icon(
             Icons.aspect_ratio_outlined,
             color: Colors.white,
@@ -150,10 +142,12 @@ imageFromBase64String(String base64String) {
   return FadeInImage(
     width: double.infinity,
     height: 400,
-    fit: BoxFit.fitWidth,
+    fit: BoxFit.contain,
     image: Image.memory(
       base64Decode(base64String),
-      fit: BoxFit.fill,
+      height: double.infinity,
+      width: double.infinity,
+      fit: BoxFit.fitWidth,
       filterQuality: FilterQuality.medium,
       alignment: Alignment.center,
     ).image,

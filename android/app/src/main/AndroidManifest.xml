@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.productos_app">
+    package="mx.enlacetecnologias.flutter_bitacora_app">
    <application
-        android:label="productos_app"
+        android:label="Bitácora"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"

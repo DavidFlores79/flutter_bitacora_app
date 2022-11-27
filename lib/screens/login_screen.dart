@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:productos_app/providers/providers.dart';
-import 'package:productos_app/screens/screens.dart';
-import 'package:productos_app/services/auth_service.dart';
-import 'package:productos_app/ui/input_decorations.dart';
-import 'package:productos_app/ui/notifications.dart';
-import 'package:productos_app/widgets/widgets.dart';
+import 'package:bitacora_app/providers/providers.dart';
+import 'package:bitacora_app/screens/screens.dart';
+import 'package:bitacora_app/services/auth_service.dart';
+import 'package:bitacora_app/ui/input_decorations.dart';
+import 'package:bitacora_app/ui/notifications.dart';
+import 'package:bitacora_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -111,12 +111,12 @@ class _LoginForm extends StatelessWidget {
                 obscureText: true,
                 decoration: InputDecorations.authInputDecoration(
                     color: myColor,
-                    hintText: 'Mínimo 8 caracteres',
+                    hintText: 'Mínimo 6 caracteres',
                     labelText: 'Contraseña',
                     prefixIcon: Icons.lock_outlined),
                 onChanged: (value) => loginForm.password = value,
                 validator: (value) {
-                  return (value != null && value.length >= 8)
+                  return (value != null && value.length >= 6)
                       ? null
                       : 'Contraseña inválida.';
                 },
@@ -135,17 +135,18 @@ class _LoginForm extends StatelessWidget {
                         //hacer la peticion al backend para validar usuario
                         final authService =
                             Provider.of<AuthService>(context, listen: false);
-                        final String? errorMessage = await authService
+                        final String? loginMessage = await authService
                             .loginUser(loginForm.email, loginForm.password);
 
-                        if (errorMessage == null) {
+                        if (loginMessage == 'true') {
+                          loginForm.isLoading = false;
                           // ignore: use_build_context_synchronously
                           Navigator.pushReplacementNamed(
                             context,
                             HomeScreen.routeName,
                           );
                         } else {
-                          Notifications.showSnackBar(errorMessage);
+                          Notifications.showSnackBar(loginMessage.toString());
                           loginForm.isLoading = false;
                         }
                       },

@@ -1,4 +1,4 @@
-package com.example.productos_app
+package mx.enlacetecnologias.flutter_bitacora_app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:productos_app/models/models.dart';
-import 'package:productos_app/providers/providers.dart';
-import 'package:productos_app/screens/screens.dart';
-import 'package:productos_app/shared/preferences.dart';
+import 'package:bitacora_app/models/models.dart';
+import 'package:bitacora_app/providers/providers.dart';
+import 'package:bitacora_app/screens/screens.dart';
+import 'package:bitacora_app/shared/preferences.dart';
 import 'package:provider/provider.dart';
 
 class CheckInScreen extends StatefulWidget {
@@ -21,6 +21,7 @@ class _CheckInScreenState extends State<CheckInScreen> {
   Widget build(BuildContext context) {
     final listaVisitasProvider = Provider.of<ListaVisitasProvider>(context);
     List<Visitas> visitas = listaVisitasProvider.listaDeVisitas;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -99,11 +100,19 @@ class _CheckInScreenState extends State<CheckInScreen> {
                         setState(() {
                           visitas.removeAt(index);
                         });
+                        final altura = MediaQuery.of(context).size.height;
                         ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                behavior: SnackBarBehavior.floating,
-                                content:
-                                    Text('Se ha dado salida a este vehiculo')));
+                          SnackBar(
+                            margin: EdgeInsets.only(
+                              bottom: altura - 320,
+                              left: 20,
+                              right: 20,
+                            ),
+                            behavior: SnackBarBehavior.floating,
+                            content:
+                                const Text('Se ha dado salida a este vehiculo'),
+                          ),
+                        );
                       },
                       child: ListTile(
                         onTap: () {

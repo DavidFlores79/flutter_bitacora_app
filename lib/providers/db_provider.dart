@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:productos_app/models/models.dart';
+import 'package:bitacora_app/models/models.dart';
 import 'package:sqflite/sqflite.dart';
 import "package:path/path.dart" show join;
 

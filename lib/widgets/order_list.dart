@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:productos_app/models/order_response.dart';
-import 'package:productos_app/widgets/widgets.dart';
+import 'package:bitacora_app/models/order_response.dart';
+import 'package:bitacora_app/widgets/widgets.dart';
 
 class OrderList extends StatelessWidget {
   List<Pedido> pedidos = [];

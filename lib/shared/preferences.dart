@@ -1,9 +1,11 @@
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferences {
   static late SharedPreferences _prefs;
 
-  static String _apiServer = 'localhost';
+  static String _apiUser = '';
+  static String _apiServer = '205.251.136.75';
   static bool _isActive = false;
   static String _expirationDate = '1979-04-10';
   static bool _isDarkMode = false;
@@ -16,6 +18,15 @@ class Preferences {
   static set apiServer(String value) {
     _apiServer = value;
     _prefs.setString('apiServer', value);
+  }
+
+  static String get apiUser {
+    return _prefs.getString('apiUser') ?? _apiUser;
+  }
+
+  static set apiUser(String value) {
+    _apiUser = value;
+    _prefs.setString('apiUser', value);
   }
 
   static bool get isActive {
@@ -56,5 +67,36 @@ class Preferences {
 
   static Future init() async {
     _prefs = await SharedPreferences.getInstance();
+  }
+
+  static String timestampToDate(int timestamp) {
+    var now = DateTime.now();
+    //var format = DateFormat('HH:mm a');
+    //var format = DateFormat('yyyy-MM-dd, HH:mm');
+    var format = DateFormat('yyyy-MM-dd, hh:mm a');
+    var date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    var diff = now.difference(date);
+    var time = '';
+
+    if (diff.inSeconds <= 0 ||
+        diff.inSeconds > 0 && diff.inMinutes == 0 ||
+        diff.inMinutes > 0 && diff.inHours == 0 ||
+        diff.inHours > 0 && diff.inDays == 0) {
+      time = format.format(date);
+    } else if (diff.inDays > 0 && diff.inDays < 7) {
+      if (diff.inDays == 1) {
+        time = '${diff.inDays} DAY AGO';
+      } else {
+        time = '${diff.inDays} DAYS AGO';
+      }
+    } else {
+      if (diff.inDays == 7) {
+        time = '${(diff.inDays / 7).floor()} WEEK AGO';
+      } else {
+        time = '${(diff.inDays / 7).floor()} WEEKS AGO';
+      }
+    }
+
+    return time;
   }
 }

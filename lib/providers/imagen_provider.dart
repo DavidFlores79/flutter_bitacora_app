@@ -1,5 +1,5 @@
 // import 'package:flutter/material.dart';
-// import 'package:productos_app/shared/preferences.dart';
+// import 'package:bitacora_app/shared/preferences.dart';
 
 // class ImagenProvider extends ChangeNotifier {
 //   static String base64String = "";

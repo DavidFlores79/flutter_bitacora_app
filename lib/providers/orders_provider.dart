@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:productos_app/models/error_response.dart';
-import 'package:productos_app/models/models.dart';
-import 'package:productos_app/ui/notifications.dart';
+import 'package:bitacora_app/models/error_response.dart';
+import 'package:bitacora_app/models/models.dart';
+import 'package:bitacora_app/ui/notifications.dart';
 
 class OrdersProvider extends ChangeNotifier {
   final String _apiUrl = '205.251.136.75';

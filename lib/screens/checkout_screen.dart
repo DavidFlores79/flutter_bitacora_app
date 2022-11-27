@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:productos_app/models/models.dart';
-import 'package:productos_app/providers/providers.dart';
-import 'package:productos_app/screens/screens.dart';
-import 'package:productos_app/shared/preferences.dart';
+import 'package:bitacora_app/models/models.dart';
+import 'package:bitacora_app/providers/providers.dart';
+import 'package:bitacora_app/screens/screens.dart';
+import 'package:bitacora_app/shared/preferences.dart';
 import 'package:provider/provider.dart';
 
 class CheckOutScreen extends StatefulWidget {
@@ -75,14 +75,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           getTipo(visitas[index].tipoVehiculoId),
                           Preferences.isDarkMode ? Colors.white : Colors.black),
                       _CustomRichText(
+                          "Recibió: ",
+                          visitas[index].userId.toString(),
+                          Preferences.isDarkMode ? Colors.white : Colors.black),
+                      _CustomRichText(
                           "Entrada: ", visitas[index].fechaEntrada, Colors.red),
                       if (visitas[index].fechaSalida != '')
                         _CustomRichText("Salida: ", visitas[index].fechaSalida,
                             Colors.green),
-                      _CustomRichText(
-                          "Recibió: ",
-                          visitas[index].userId.toString(),
-                          Preferences.isDarkMode ? Colors.white : Colors.black),
                     ],
                   ),
                   leading: FaIcon(

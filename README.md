@@ -1,4 +1,4 @@
-# productos_app
+# bitacora_app
 
 A new Flutter project.
 

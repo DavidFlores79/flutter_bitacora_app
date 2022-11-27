@@ -1,18 +1,21 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:bitacora_app/models/models.dart';
+import 'package:bitacora_app/shared/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:productos_app/providers/providers.dart';
-import 'package:productos_app/screens/screens.dart';
-import 'package:productos_app/services/services.dart';
-import 'package:productos_app/widgets/widgets.dart';
+import 'package:bitacora_app/providers/providers.dart';
+import 'package:bitacora_app/screens/screens.dart';
+import 'package:bitacora_app/services/services.dart';
+import 'package:bitacora_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class NewVisitScreen extends StatefulWidget {
   static const String routeName = 'newvisit';
+
   NewVisitScreen({super.key});
 
   @override
@@ -28,15 +31,15 @@ class _NewVisitScreenState extends State<NewVisitScreen> {
       const AssetImage('assets/placeholder.png');
 
   final Map<String, dynamic> formValues = {
-    'nombreVisitante': '',
-    'nombreAQuienVisita': '',
-    'motivoVisita': '',
-    'fechaEntrada': '',
-    'fechaSalida': '',
-    'imagenIdentificacion': 'placeholder.png',
-    'placas': '',
-    'tipoVehiculoId': 1,
-    'userId': 1,
+    "nombreVisitante": "",
+    "nombreAQuienVisita": "",
+    "motivoVisita": "",
+    "fechaEntrada": "",
+    "fechaSalida": "",
+    "imagenIdentificacion": "placeholder.png",
+    "placas": "",
+    "tipoVehiculoId": 1,
+    "userId": 1,
   };
 
   void _pickImagebase64(ImageSource source) async {
@@ -62,6 +65,7 @@ class _NewVisitScreenState extends State<NewVisitScreen> {
     DateTime now = DateTime.now();
     final formatterDate = DateFormat('yyyy/MM/dd HH:mm');
     formValues['fechaEntrada'] = formatterDate.format(now).toString();
+    User apiUser = User.fromJson(Preferences.apiUser);
 
     final GlobalKey<FormState> myFormKey = GlobalKey<FormState>();
 
@@ -85,7 +89,7 @@ class _NewVisitScreenState extends State<NewVisitScreen> {
           child: Column(
             children: [
               Container(
-                height: 300,
+                height: 250,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
@@ -206,6 +210,7 @@ class _NewVisitScreenState extends State<NewVisitScreen> {
                   }
                   //print(formValues);
                   formValues['actualizado'] = 0;
+                  formValues['userId'] = apiUser.id;
 
                   Provider.of<ListaVisitasProvider>(context, listen: false)
                       .agregarVisita(

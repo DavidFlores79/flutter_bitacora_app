@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:productos_app/models/models.dart';
-import 'package:productos_app/providers/providers.dart';
-import 'package:productos_app/shared/preferences.dart';
+import 'package:bitacora_app/models/models.dart';
+import 'package:bitacora_app/providers/providers.dart';
+import 'package:bitacora_app/shared/preferences.dart';
 import 'package:provider/provider.dart';
 
 class VisitsScreen extends StatelessWidget {

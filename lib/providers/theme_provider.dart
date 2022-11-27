@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class ThemeProvider extends ChangeNotifier {
   ThemeData currentTheme;
-  Color lightColor = const Color.fromARGB(255, 52, 54, 168);
-  Color darkColor = const Color.fromRGBO(240, 171, 0, 1);
+  static Color lightColor = const Color.fromARGB(255, 52, 54, 168);
+  static Color darkColor = const Color.fromRGBO(240, 171, 0, 1);
 
   ThemeProvider({
     required isDarkmode,
@@ -17,7 +17,7 @@ class ThemeProvider extends ChangeNotifier {
                 floatingActionButtonTheme: FloatingActionButtonThemeData(
                     backgroundColor: darkColor, foregroundColor: Colors.white),
                 bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                    selectedItemColor: darkColor, backgroundColor: darkColor),
+                    selectedItemColor: darkColor, backgroundColor: lightColor),
                 switchTheme: SwitchThemeData(
                   thumbColor: MaterialStateProperty.all(darkColor),
                   trackColor: MaterialStateProperty.all(
@@ -61,7 +61,7 @@ class ThemeProvider extends ChangeNotifier {
       floatingActionButtonTheme: FloatingActionButtonThemeData(
           backgroundColor: darkColor, foregroundColor: Colors.white),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          selectedItemColor: darkColor, backgroundColor: darkColor),
+          selectedItemColor: darkColor, backgroundColor: lightColor),
       switchTheme: SwitchThemeData(
         thumbColor: MaterialStateProperty.all(darkColor),
         trackColor:

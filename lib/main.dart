@@ -1,16 +1,20 @@
+import 'package:bitacora_app/locator.dart';
+import 'package:bitacora_app/services/services.dart';
+import 'package:bitacora_app/services/sync_service.dart';
 import 'package:flutter/material.dart';
-import 'package:productos_app/providers/lista_visitas_provider.dart';
-import 'package:productos_app/providers/navbar_provider.dart';
-import 'package:productos_app/providers/providers.dart';
-import 'package:productos_app/screens/screens.dart';
-import 'package:productos_app/services/auth_service.dart';
-import 'package:productos_app/shared/preferences.dart';
-import 'package:productos_app/ui/notifications.dart';
+import 'package:bitacora_app/providers/lista_visitas_provider.dart';
+import 'package:bitacora_app/providers/navbar_provider.dart';
+import 'package:bitacora_app/providers/providers.dart';
+import 'package:bitacora_app/screens/screens.dart';
+import 'package:bitacora_app/services/auth_service.dart';
+import 'package:bitacora_app/shared/preferences.dart';
+import 'package:bitacora_app/ui/notifications.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Preferences.init();
+  setupLocator();
   runApp(const AppState());
 }
 
@@ -41,6 +45,9 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider<ListaVisitasProvider>(
           create: (context) => ListaVisitasProvider(),
         ),
+        ChangeNotifierProvider<SyncService>(
+          create: (context) => SyncService(),
+        ),
       ],
       child: const MyApp(),
     );
@@ -54,6 +61,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorKey: locator<NavigationService>().navigatorKey,
       scaffoldMessengerKey: Notifications.messengerKey,
       title: 'Material App',
       initialRoute: AuthTokenScreen.routeName,
@@ -69,6 +77,7 @@ class MyApp extends StatelessWidget {
         SettingsScreen.routeName: (context) => SettingsScreen(),
         NewVisitScreen.routeName: (context) => NewVisitScreen(),
         VisitDetails.routeName: (context) => VisitDetails(),
+        ProfileScreen.routeName: (context) => ProfileScreen(),
       },
       theme: Provider.of<ThemeProvider>(context).currentTheme,
     );

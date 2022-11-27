@@ -1,8 +1,11 @@
+import 'package:bitacora_app/shared/preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:productos_app/screens/home_screen.dart';
-import 'package:productos_app/screens/login_screen.dart';
-import 'package:productos_app/services/services.dart';
+import 'package:bitacora_app/screens/home_screen.dart';
+import 'package:bitacora_app/screens/login_screen.dart';
+import 'package:bitacora_app/services/services.dart';
 import 'package:provider/provider.dart';
+
+import '../providers/providers.dart';
 
 class AuthTokenScreen extends StatelessWidget {
   static const String routeName = 'authtoken';
@@ -12,8 +15,9 @@ class AuthTokenScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
-
+    // authService.logout();
     return Scaffold(
+      backgroundColor: ThemeProvider.lightColor,
       body: Center(
         child: FutureBuilder(
           future: authService.getToken(),
@@ -21,6 +25,7 @@ class AuthTokenScreen extends StatelessWidget {
             if (!snapshot.hasData) return CircularProgressIndicator.adaptive();
 
             if (snapshot.data == '') {
+              //Preferences.apiUser = '';
               Future.microtask(
                 () {
                   // Navigator.pushReplacementNamed(context, LoginScreen.routeName);

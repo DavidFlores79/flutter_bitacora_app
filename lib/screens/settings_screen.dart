@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:productos_app/providers/providers.dart';
-import 'package:productos_app/screens/screens.dart';
-import 'package:productos_app/services/services.dart';
-import 'package:productos_app/shared/preferences.dart';
+import 'package:bitacora_app/providers/providers.dart';
+import 'package:bitacora_app/screens/screens.dart';
+import 'package:bitacora_app/services/services.dart';
+import 'package:bitacora_app/shared/preferences.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -22,15 +22,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         centerTitle: true,
         elevation: 0,
         title: const Text('Configuración'),
-        actions: [
-          IconButton(
-              onPressed: () async {
-                Navigator.pushReplacementNamed(context, LoginScreen.routeName);
-                await authService.logout();
-              },
-              icon: const Icon(Icons.logout))
-        ],
-        //backgroundColor: const Color.fromRGBO(35, 35, 35, 1),
       ),
       body: SafeArea(
         child: Padding(
