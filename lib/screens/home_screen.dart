@@ -51,6 +51,7 @@ class HomeScreen extends StatelessWidget {
                   Provider.of<SyncService>(context, listen: false);
               List<Visitas> visitas = listaVisitasProvider.listaDeVisitas;
               syncService.sincronizarVisitas(visitas);
+              visitas = listaVisitasProvider.listaDeVisitas;
               Notifications.showSnackBar('Sincronizando datos...');
             });
         break;

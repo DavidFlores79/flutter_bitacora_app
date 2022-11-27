@@ -63,7 +63,7 @@ class _NewVisitScreenState extends State<NewVisitScreen> {
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context, listen: false);
     DateTime now = DateTime.now();
-    final formatterDate = DateFormat('yyyy/MM/dd HH:mm');
+    final formatterDate = DateFormat('yyyy-MM-dd HH:mm');
     formValues['fechaEntrada'] = formatterDate.format(now).toString();
     User apiUser = User.fromJson(Preferences.apiUser);
 

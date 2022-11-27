@@ -20,7 +20,7 @@ class Notifications {
         ),
         backgroundColor: const Color.fromRGBO(240, 171, 0, 1),
         content: Text(
-          '${message} ${screenHeight}',
+          message,
           style:
               const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,

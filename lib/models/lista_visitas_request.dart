@@ -1,6 +1,5 @@
-// To parse this JSON data, do
-//
-//     final listaVisitasRequest = listaVisitasRequestFromMap(jsonString);
+/// Creado por: David Amilcar Flores Castillo
+/// el 22/11/2022
 
 import 'dart:convert';
 

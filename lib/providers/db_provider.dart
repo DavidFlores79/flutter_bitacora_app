@@ -120,7 +120,7 @@ class DBProvider {
 
   Future<int> checkOutDate(int id) async {
     DateTime now = DateTime.now();
-    final formatterDate = DateFormat('yyyy/MM/dd HH:mm');
+    final formatterDate = DateFormat('yyyy-MM-dd HH:mm');
     final fechaSalida = formatterDate.format(now).toString();
 
     final db = await dataBase;

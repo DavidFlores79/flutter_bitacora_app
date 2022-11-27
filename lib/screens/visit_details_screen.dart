@@ -118,9 +118,9 @@ class ImagenINE extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.shade400,
-                spreadRadius: 3,
-                blurRadius: 5,
-                offset: const Offset(-3, 3), // changes position of shadow
+                spreadRadius: 1,
+                blurRadius: 12,
+                offset: const Offset(0, 0), // changes position of shadow
               ),
             ],
           ),

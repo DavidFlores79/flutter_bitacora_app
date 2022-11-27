@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bitacora_app/locator.dart';
 import 'package:bitacora_app/models/models.dart';
+import 'package:bitacora_app/providers/db_provider.dart';
 import 'package:bitacora_app/screens/screens.dart';
 import 'package:bitacora_app/services/services.dart';
 import 'package:flutter/material.dart';
@@ -36,20 +37,30 @@ class SyncService extends ChangeNotifier {
     ListaVisitasRequest dataRaw = ListaVisitasRequest(visitas: visitas);
 
     final url = Uri.http(_apiUrl, '$_proyectName$_endPoint');
+    late SyncResponse serverResponse;
 
     try {
       final response = await http.post(url,
           headers: headers, body: jsonEncode(dataRaw.toMap()));
 
-      final Map<String, dynamic> decodedResp = json.decode(response.body);
-      print(decodedResp);
+      // final Map<String, dynamic> decodedResp = json.decode(response.body);
+      // print(decodedResp);
 
       switch (response.statusCode) {
         case 200:
-          print('soy un 200');
+          serverResponse = SyncResponse.fromJson(response.body);
+          print('soy un 200: ${serverResponse.toJson()}');
+
           Notifications.messengerKey.currentState!.hideCurrentSnackBar();
-          Notifications.showSnackBar(
-              decodedResp['message'] ?? "Sincronizacion completada.");
+          Notifications.showSnackBar((serverResponse.visitasActualizadas != 0)
+              ? serverResponse.message
+              : "No existen registros por actualizar");
+          if (serverResponse.visitasActualizadas != 0) {
+            for (var i = 0; i < serverResponse.idsActualizados!.length; i++) {
+              print(serverResponse.idsActualizados?[i]);
+              DBProvider.db.deleteRecord(serverResponse.idsActualizados![i]);
+            }
+          }
           break;
         case 401:
           print('logout');
