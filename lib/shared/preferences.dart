@@ -10,6 +10,7 @@ class Preferences {
   static String _expirationDate = '1979-04-10';
   static bool _isDarkMode = false;
   static bool _isModulesActive = true;
+  static double _screenHeigth = 500;
 
   static String get apiServer {
     return _prefs.getString('apiServer') ?? _apiServer;
@@ -18,6 +19,15 @@ class Preferences {
   static set apiServer(String value) {
     _apiServer = value;
     _prefs.setString('apiServer', value);
+  }
+
+  static double get screenHeigth {
+    return _prefs.getDouble('screenHeigth') ?? _screenHeigth;
+  }
+
+  static set screenHeigth(double value) {
+    _screenHeigth = value;
+    _prefs.setDouble('screenHeigth', value);
   }
 
   static String get apiUser {

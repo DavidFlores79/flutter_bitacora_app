@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bitacora_app/ui/notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:bitacora_app/models/models.dart';
@@ -96,9 +97,8 @@ class VisitsScreen extends StatelessWidget {
                     // setState(() {
                     //   widget.pedidos.removeAt(index);
                     // });
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        behavior: SnackBarBehavior.floating,
-                        content: Text('Se ha dado salida a este vehículo')));
+                    Notifications.showSnackBar(
+                        'Se ha dado salida a este vehiculo');
                   },
                   child: ListTile(
                     onTap: () {

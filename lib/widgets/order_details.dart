@@ -1,3 +1,4 @@
+import 'package:bitacora_app/ui/notifications.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -101,9 +102,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                   setState(() {
                     widget.pedidos.removeAt(index);
                   });
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      behavior: SnackBarBehavior.floating,
-                      content: Text('Se ha dado salida a ese vehiculo')));
+                  Notifications.showSnackBar(
+                      'Se ha dado salida a este vehiculo');
                 },
                 child: ListTile(
                   onTap: () {},

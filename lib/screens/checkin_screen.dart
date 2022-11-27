@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bitacora_app/ui/notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -101,18 +102,8 @@ class _CheckInScreenState extends State<CheckInScreen> {
                           visitas.removeAt(index);
                         });
                         final altura = MediaQuery.of(context).size.height;
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            margin: EdgeInsets.only(
-                              bottom: altura - 320,
-                              left: 20,
-                              right: 20,
-                            ),
-                            behavior: SnackBarBehavior.floating,
-                            content:
-                                const Text('Se ha dado salida a este vehiculo'),
-                          ),
-                        );
+                        Notifications.showSnackBar(
+                            'Se ha dado salida a este vehiculo');
                       },
                       child: ListTile(
                         onTap: () {

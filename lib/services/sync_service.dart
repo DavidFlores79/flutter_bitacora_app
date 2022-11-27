@@ -1,6 +1,9 @@
 import 'dart:convert';
 
+import 'package:bitacora_app/locator.dart';
 import 'package:bitacora_app/models/models.dart';
+import 'package:bitacora_app/screens/screens.dart';
+import 'package:bitacora_app/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:bitacora_app/shared/preferences.dart';
@@ -15,6 +18,7 @@ class SyncService extends ChangeNotifier {
   List<Visitas> visitas = [];
   bool result = false;
 
+  final NavigationService _navigationService = locator<NavigationService>();
   final storage = const FlutterSecureStorage();
 
   Future<String?> sincronizarVisitas(List<Visitas> visitas) async {
@@ -43,9 +47,13 @@ class SyncService extends ChangeNotifier {
       switch (response.statusCode) {
         case 200:
           print('soy un 200');
+          Notifications.messengerKey.currentState!.hideCurrentSnackBar();
+          Notifications.showSnackBar(
+              decodedResp['message'] ?? "Sincronizacion completada.");
           break;
         case 401:
           print('logout');
+          logout();
           // if (response.body.contains('code')) {
           //   serverResponse = ServerResponse.fromJson(response.body);
           //   Notifications.showSnackBar(
@@ -82,5 +90,12 @@ class SyncService extends ChangeNotifier {
 
   Future<String> getToken() async {
     return await storage.read(key: 'jwtToken') ?? '';
+  }
+
+  logout() async {
+    await storage.deleteAll();
+    Notifications.messengerKey.currentState!.hideCurrentSnackBar();
+    Notifications.showSnackBar('Su sesión ha vencido.');
+    _navigationService.navigateTo(LoginScreen.routeName);
   }
 }

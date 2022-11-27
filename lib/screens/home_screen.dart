@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:bitacora_app/models/models.dart';
 import 'package:bitacora_app/services/services.dart';
+import 'package:bitacora_app/shared/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:bitacora_app/providers/navbar_provider.dart';
@@ -22,6 +23,7 @@ class HomeScreen extends StatelessWidget {
       listen: false,
     );
     final altura = MediaQuery.of(context).size.height;
+    Preferences.screenHeigth = MediaQuery.of(context).size.height;
 
     final mp = Provider.of<NavbarProvider>(context);
     final listaVisitasProvider = Provider.of<ListaVisitasProvider>(
@@ -49,14 +51,7 @@ class HomeScreen extends StatelessWidget {
                   Provider.of<SyncService>(context, listen: false);
               List<Visitas> visitas = listaVisitasProvider.listaDeVisitas;
               syncService.sincronizarVisitas(visitas);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  margin: EdgeInsets.only(
-                      bottom: altura - 320, left: 20, right: 20),
-                  behavior: SnackBarBehavior.floating,
-                  content: const Text('Sincronizando datos...'),
-                ),
-              );
+              Notifications.showSnackBar('Sincronizando datos...');
             });
         break;
       case AboutScreen.routeName:
