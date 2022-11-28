@@ -53,6 +53,7 @@ class DBProvider {
   }
 
   Future<int> nuevaVisita(Visitas visita) async {
+    final id = DateTime.now().millisecondsSinceEpoch;
     final nombreVisitante = visita.nombreVisitante;
     final nombreAQuienVisita = visita.nombreAQuienVisita;
     final motivoVisita = visita.motivoVisita;
@@ -67,8 +68,27 @@ class DBProvider {
     final db = await dataBase;
 
     // final res = await db.insert('visitas', visita.toMap());
-    final res = await db.rawInsert(
-        'INSERT INTO visitas(nombreVisitante, nombreAQuienVisita, motivoVisita, imagenIdentificacion, tipoVehiculoId, placas, userId, fechaEntrada, fechaSalida, actualizado) VALUES("$nombreVisitante","$nombreAQuienVisita","$motivoVisita","$imagenIdentificacion",$tipoVehiculoId,"$placas",$userId,"$fechaEntrada","$fechaSalida", $actualizado)');
+    final res = await db.rawInsert('''INSERT INTO visitas(  id, 
+                                                            nombreVisitante, 
+                                                            nombreAQuienVisita, 
+                                                            motivoVisita, 
+                                                            imagenIdentificacion, 
+                                                            tipoVehiculoId, 
+                                                            placas, userId, 
+                                                            fechaEntrada, 
+                                                            fechaSalida, 
+                                                            actualizado) 
+                                VALUES( $id,
+                                        "$nombreVisitante",
+                                        "$nombreAQuienVisita",
+                                        "$motivoVisita",
+                                        "$imagenIdentificacion",
+                                        $tipoVehiculoId,
+                                        "$placas",
+                                        $userId,
+                                        "$fechaEntrada",
+                                        "$fechaSalida", 
+                                        $actualizado)''');
 
     print('Id Registrado: $res.');
 

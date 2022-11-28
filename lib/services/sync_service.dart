@@ -85,6 +85,8 @@ class SyncService extends ChangeNotifier {
           print('soy un 404');
           break;
         case 500:
+          serverResponse = SyncResponse.fromJson(response.body);
+          print('soy un 500: ${serverResponse.toJson()}');
           Notifications.showSnackBar('500 Server Error.');
           break;
         default:
