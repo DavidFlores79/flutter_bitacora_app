@@ -7,8 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:bitacora_app/ui/notifications.dart';
 
 class AuthService extends ChangeNotifier {
-  final String _apiUrl = '192.168.100.8';
-  final String _proyectName = '/bitacora/public_html';
+  final String _apiUrl = Preferences.apiServer;
+  final String _proyectName = '';
   final storage = const FlutterSecureStorage();
 
   Future<String?> loginUser(String nickname, String password) async {
@@ -17,7 +17,7 @@ class AuthService extends ChangeNotifier {
       'password': password
     };
 
-    final url = Uri.http(_apiUrl, '$_proyectName/api/login', authData);
+    final url = Uri.https(_apiUrl, '/api/login', authData);
     print(url);
     try {
       final response = await http

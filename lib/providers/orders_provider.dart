@@ -1,3 +1,4 @@
+import 'package:bitacora_app/shared/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -6,8 +7,7 @@ import 'package:bitacora_app/models/models.dart';
 import 'package:bitacora_app/ui/notifications.dart';
 
 class OrdersProvider extends ChangeNotifier {
-  final String _apiUrl = '205.251.136.75';
-  final String _proyectName = '/HopeV200';
+  final String _apiUrl = Preferences.apiServer;
   final String _endPoint = '/api/v1/ordenes-pendientes';
   String jwtToken = '';
   List<Pedido> pedidos = [];
@@ -31,7 +31,7 @@ class OrdersProvider extends ChangeNotifier {
       'Authorization': 'Bearer $jwtToken'
     };
 
-    final url = Uri.http(_apiUrl, '$_proyectName$_endPoint');
+    final url = Uri.https(_apiUrl, _endPoint);
 
     final response = await http.post(url, headers: headers);
 
@@ -58,6 +58,7 @@ class OrdersProvider extends ChangeNotifier {
 
   Future logout() async {
     await storage.deleteAll();
+    Preferences.apiUser = '';
     notifyListeners();
     return;
   }

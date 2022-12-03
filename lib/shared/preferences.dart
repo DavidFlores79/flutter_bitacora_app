@@ -5,7 +5,7 @@ class Preferences {
   static late SharedPreferences _prefs;
 
   static String _apiUser = '';
-  static String _apiServer = '205.251.136.75';
+  static String _apiServer = 'mibitacora.enlacetecnologias.mx';
   static bool _isActive = false;
   static String _expirationDate = '1979-04-10';
   static bool _isDarkMode = false;

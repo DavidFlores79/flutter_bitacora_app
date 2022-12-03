@@ -12,8 +12,8 @@ import 'package:http/http.dart' as http;
 import 'package:bitacora_app/ui/notifications.dart';
 
 class SyncService extends ChangeNotifier {
-  final String _apiUrl = '192.168.100.8';
-  final String _proyectName = '/bitacora/public_html';
+  final String _apiUrl = Preferences.apiServer;
+  // final String _proyectName = '/bitacora/public_html';
   String _endPoint = '/api/v1/sync';
   String jwtToken = '';
   List<Visitas> visitas = [];
@@ -36,12 +36,13 @@ class SyncService extends ChangeNotifier {
 
     ListaVisitasRequest dataRaw = ListaVisitasRequest(visitas: visitas);
 
-    final url = Uri.http(_apiUrl, '$_proyectName$_endPoint');
+    final url = Uri.https(_apiUrl, _endPoint);
     late SyncResponse serverResponse;
 
     try {
-      final response = await http.post(url,
-          headers: headers, body: jsonEncode(dataRaw.toMap()));
+      final response = await http
+          .post(url, headers: headers, body: jsonEncode(dataRaw.toMap()))
+          .timeout(const Duration(seconds: 15));
 
       // final Map<String, dynamic> decodedResp = json.decode(response.body);
       // print(decodedResp);
@@ -107,6 +108,7 @@ class SyncService extends ChangeNotifier {
 
   logout() async {
     await storage.deleteAll();
+    Preferences.apiUser = '';
     Notifications.messengerKey.currentState!.hideCurrentSnackBar();
     Notifications.showSnackBar('Su sesión ha vencido.');
     _navigationService.navigateTo(LoginScreen.routeName);
