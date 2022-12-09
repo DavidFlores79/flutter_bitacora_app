@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:bitacora_app/shared/preferences.dart';
@@ -39,7 +38,8 @@ class AuthService extends ChangeNotifier {
         return decodedResp['message'] ?? "Servidor no disponible.";
       }
     } catch (e) {
-      Notifications.showSnackBar('Error: ${e.toString()}');
+      Notifications.showSnackBar('Error: ${e.toString()}',
+          screenHeight: Preferences.screenHeigth);
     }
 
     //print(decodedResp);
@@ -53,6 +53,12 @@ class AuthService extends ChangeNotifier {
   }
 
   Future<String> getToken() async {
+    final DateTime expirationDate = DateTime.parse(Preferences.expirationDate);
+    final DateTime now = DateTime.now();
+    if (now.compareTo(expirationDate) > 0) {
+      Preferences.apiUser = '';
+      return '';
+    }
     return await storage.read(key: 'jwtToken') ?? '';
   }
 }

@@ -22,14 +22,12 @@ class HomeScreen extends StatelessWidget {
       context,
       listen: false,
     );
-    final altura = MediaQuery.of(context).size.height;
-    Preferences.screenHeigth = MediaQuery.of(context).size.height;
-
     final mp = Provider.of<NavbarProvider>(context);
     final listaVisitasProvider = Provider.of<ListaVisitasProvider>(
       context,
       listen: false,
     );
+    Preferences.screenHeigth = MediaQuery.of(context).size.height - 300;
     // listaVisitasProvider.listarVisitas();
     listaVisitasProvider.listarVisitasNoSincronizadas();
     // listaVisitasProvider.eliminarTodasLasVisitas();
@@ -52,7 +50,8 @@ class HomeScreen extends StatelessWidget {
               List<Visitas> visitas = listaVisitasProvider.listaDeVisitas;
               syncService.sincronizarVisitas(visitas);
               visitas = listaVisitasProvider.listaDeVisitas;
-              Notifications.showSnackBar('Sincronizando datos...');
+              Notifications.showSnackBar('Sincronizando datos...',
+                  screenHeight: Preferences.screenHeigth);
             });
         break;
       case AboutScreen.routeName:

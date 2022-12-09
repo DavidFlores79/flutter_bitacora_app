@@ -145,11 +145,11 @@ class DBProvider {
 
     final db = await dataBase;
 
-    // Delete the record by Id
+    // Record Updated
     final count = await db.rawUpdate(
         'UPDATE visitas SET fechaSalida = ?, actualizado = ? WHERE id = ?',
         [fechaSalida, 1, id]);
-    print('Se elimaron: $count elemento(s).');
+    print('Se actualizó: $count elemento(s).');
 
     return count;
   }

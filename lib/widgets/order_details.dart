@@ -1,10 +1,8 @@
 import 'package:bitacora_app/ui/notifications.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:bitacora_app/models/models.dart';
-import 'package:bitacora_app/providers/providers.dart';
 import 'package:bitacora_app/shared/preferences.dart';
 
 class OrderDetails extends StatefulWidget {
@@ -68,20 +66,6 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   ? Colors.white
                                   : Colors.black),
                         ),
-                        // content: Padding(
-                        //   padding: const EdgeInsets.all(8.0),
-                        //   child: RichText(
-                        //     text: TextSpan(
-                        //         style: TextStyle(
-                        //             fontSize: 15,
-                        //             color: Preferences.isDarkMode
-                        //                 ? Colors.white
-                        //                 : Colors.black),
-                        //         text:
-                        //             "Estas seguro que deseas dar salida a este Vehículo? ",
-                        //         children: []),
-                        //   ),
-                        // ),
                         actions: <Widget>[
                           TextButton(
                               onPressed: () => Navigator.of(context).pop(true),
@@ -103,7 +87,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                     widget.pedidos.removeAt(index);
                   });
                   Notifications.showSnackBar(
-                      'Se ha dado salida a este vehiculo');
+                      'Se ha dado salida a este vehiculo',
+                      screenHeight: Preferences.screenHeigth);
                 },
                 child: ListTile(
                   onTap: () {},

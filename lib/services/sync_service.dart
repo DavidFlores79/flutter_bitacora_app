@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:bitacora_app/locator.dart';
 import 'package:bitacora_app/models/models.dart';
 import 'package:bitacora_app/providers/db_provider.dart';
@@ -44,18 +43,17 @@ class SyncService extends ChangeNotifier {
           .post(url, headers: headers, body: jsonEncode(dataRaw.toMap()))
           .timeout(const Duration(seconds: 15));
 
-      // final Map<String, dynamic> decodedResp = json.decode(response.body);
-      // print(decodedResp);
-
       switch (response.statusCode) {
         case 200:
           serverResponse = SyncResponse.fromJson(response.body);
           print('soy un 200: ${serverResponse.toJson()}');
 
           Notifications.messengerKey.currentState!.hideCurrentSnackBar();
-          Notifications.showSnackBar((serverResponse.visitasActualizadas != 0)
-              ? serverResponse.message
-              : "No existen registros por actualizar");
+          Notifications.showSnackBar(
+              (serverResponse.visitasActualizadas != 0)
+                  ? serverResponse.message
+                  : "No existen registros por actualizar",
+              screenHeight: Preferences.screenHeigth);
           if (serverResponse.visitasActualizadas != 0) {
             for (var i = 0; i < serverResponse.idsActualizados!.length; i++) {
               print(serverResponse.idsActualizados?[i]);
@@ -66,29 +64,18 @@ class SyncService extends ChangeNotifier {
         case 401:
           print('logout');
           logout();
-          // if (response.body.contains('code')) {
-          //   serverResponse = ServerResponse.fromJson(response.body);
-          //   Notifications.showSnackBar(
-          //       serverResponse?.message ?? 'Error de Autenticación.');
-          // } else {
-          //   logout();
-          //   print('logout');
-          // }
           break;
         case 404:
-          // serverResponse = ServerResponse.fromJson(response.body);
-          // Notifications.showSnackBar(
-          //     serverResponse?.message ?? 'Error Desconocido.');
-          // pedidos = [];
-          // pedidosXProv = [];
-          // notifyListeners();
-          // print(serverResponse);
-          print('soy un 404');
+          serverResponse = SyncResponse.fromJson(response.body);
+          Notifications.showSnackBar('404.${serverResponse.message}',
+              screenHeight: Preferences.screenHeigth);
+          print('soy un 404: ${serverResponse.toJson()}');
           break;
         case 500:
           serverResponse = SyncResponse.fromJson(response.body);
           print('soy un 500: ${serverResponse.toJson()}');
-          Notifications.showSnackBar('500 Server Error.');
+          Notifications.showSnackBar('500 Server Error.',
+              screenHeight: Preferences.screenHeigth);
           break;
         default:
           print(response.body);
@@ -96,7 +83,8 @@ class SyncService extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       print('Error $e');
-      Notifications.showSnackBar(e.toString());
+      Notifications.showSnackBar(e.toString(),
+          screenHeight: Preferences.screenHeigth);
     }
 
     //print(decodedResp);

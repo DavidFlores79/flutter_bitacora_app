@@ -7,7 +7,7 @@ class Preferences {
   static String _apiUser = '';
   static String _apiServer = 'mibitacora.enlacetecnologias.mx';
   static bool _isActive = false;
-  static String _expirationDate = '1979-04-10';
+  static String _expirationDate = '1979-04-10 00:00:00';
   static bool _isDarkMode = false;
   static bool _isModulesActive = true;
   static double _screenHeigth = 500;
@@ -82,8 +82,8 @@ class Preferences {
   static String timestampToDate(int timestamp) {
     var now = DateTime.now();
     //var format = DateFormat('HH:mm a');
-    //var format = DateFormat('yyyy-MM-dd, HH:mm');
-    var format = DateFormat('yyyy-MM-dd, hh:mm a');
+    var format = DateFormat('yyyy-MM-dd HH:mm');
+    // var format = DateFormat('yyyy-MM-dd, hh:mm a');
     var date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
     var diff = now.difference(date);
     var time = '';

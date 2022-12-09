@@ -1,12 +1,9 @@
 import 'package:bitacora_app/locator.dart';
 import 'package:bitacora_app/services/services.dart';
-import 'package:bitacora_app/services/sync_service.dart';
 import 'package:flutter/material.dart';
-import 'package:bitacora_app/providers/lista_visitas_provider.dart';
 import 'package:bitacora_app/providers/navbar_provider.dart';
 import 'package:bitacora_app/providers/providers.dart';
 import 'package:bitacora_app/screens/screens.dart';
-import 'package:bitacora_app/services/auth_service.dart';
 import 'package:bitacora_app/shared/preferences.dart';
 import 'package:bitacora_app/ui/notifications.dart';
 import 'package:provider/provider.dart';

@@ -15,7 +15,6 @@ class AuthTokenScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
-    // authService.logout();
     return Scaffold(
       backgroundColor: ThemeProvider.lightColor,
       body: Center(
@@ -26,6 +25,9 @@ class AuthTokenScreen extends StatelessWidget {
 
             if (snapshot.data == '') {
               //Preferences.apiUser = '';
+              if (Preferences.apiUser == '') {
+                authService.logout();
+              }
               Future.microtask(
                 () {
                   // Navigator.pushReplacementNamed(context, LoginScreen.routeName);
